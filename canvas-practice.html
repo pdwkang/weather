@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+	<style type="text/css" media="screen">
+		#the-canvas{
+			border: black 5px solid;
+			margin: 20px;
+		}	
+
+		.border-color{
+			border: 5px solid red !important;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="the-canvas" height="500px" width="500px">
+	<!-- a place for us to draw -->
+	</canvas>
+
+	<script type="text/javascript">
+
+	var canvas = document.getElementById('the-canvas');
+	var context = canvas.getContext('2d');
+	// // make the pen red
+	// context.strokeStyle = "#ff0000";
+	// // make the pen red
+	// context.lineWidth = 10;
+	// // move the pen to x = 100, y = 100
+	// context.moveTo(100,100);
+	// // actually create, but not draw (yet) a line
+	// context.lineTo(200,200);
+	// context.lineTo(300,100);
+	// context.lineTo(100,200);
+	// context.lineTo(300,150);
+	// context.lineTo(100,100);
+	// context.stroke();
+
+	// context.fillStyle = "#0000ff";
+	// context.beginPath();
+	// context.arc(250,250,50,0*Math.PI, 1.5*Math.PI);
+	// context.arc(350,250,50,0*Math.PI, 2*Math.PI);
+	// context.fill();
+	// context.stroke();
+
+	// context.strokeStyle = 'grey';
+	// context.rect(300,20,100,100);
+	// // (starting X, starting Y, width, height)
+	// context.stroke();
+
+	var r = 0;
+	var g = 0;
+	var b = 0;
+	var x = 30;
+	var y = 30;
+	var radius = 30;
+	var endArc = 0;
+
+	var xDirection = 1
+	var yDirection = 1
+	var xBallSpeed = 5
+	var yBallSpeed = 6
+	var rectCounter = 0
+	function draw(){
+		if(rectCounter===15){
+		context.clearRect(0,0,500,500);
+		rectCounter = 0
+		radius = 0
+		changeColor();}
+
+		context.fillStyle = '#' + r + g + b;
+		context.beginPath();
+		context.arc(x, y, radius, 0*Math.PI, Math.PI*endArc);
+		context.fill();
+		x += xBallSpeed*xDirection
+		y += yBallSpeed*yDirection
+		
+		if(x >= 480){
+		xDirection = -1;
+		changeColor();
+		xBallSpeed = 6;
+		// $("canvas").addClass('border-color')
+		// $("#the-canvas").css({
+		// 	'border' : '5px solid red'
+		// })
+		}
+		
+		if(x <= 20){
+		xDirection = +1;
+		changeColor()
+		xBallSpeed = 4}
+
+		if(y >= 480){
+		yDirection = -1;
+		changeColor()
+		yBallSpeed = 5}
+		
+		if(y <= 20){
+		yDirection = +1;
+		changeColor()
+		yBallSpeed = 6}
+
+
+		// radius += 1;
+		// x = Math.floor(Math.random()*500)
+		// y = Math.floor(Math.random()*500)
+		endArc += 1;
+		rectCounter++
+		radius = (rectCounter);
+	}
+
+	var ballInterval = setInterval(draw, 10);
+
+	function changeColor(){
+		r = Math.floor(Math.random()*50)
+		g = Math.floor(Math.random()*200)
+		b = Math.floor(Math.random()*100)
+	}
+	</script>
+
+
+</body>
+</html>
